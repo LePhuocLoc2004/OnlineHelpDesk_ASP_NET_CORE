@@ -1,0 +1,47 @@
+﻿@model OnlineHelpDesk_ASP_NET_CORE.ViewModels.YeuCauVM
+@{
+    ViewData["Title"] = "Gửi yêu cầu hỗ trợ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var uuTiens = (List<DoUuTien>)ViewBag.DoUuTiens;
+}
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+<h3 class="mb-4 text-primary">Gửi yêu cầu hỗ trợ</h3>
+
+<form asp-action="GuiYeuCau" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label asp-for="Tieude" class="form-label">Tiêu đề</label>
+        <input asp-for="Tieude" class="form-control" />
+        <span asp-validation-for="Tieude" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Noidung" class="form-label">Nội dung</label>
+        <textarea asp-for="Noidung" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="Noidung" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="MaDoUuTien" class="form-label">Độ ưu tiên</label>
+        <select asp-for="MaDoUuTien" class="form-select">
+            <option value="">-- Chọn độ ưu tiên --</option>
+            @foreach (var item in uuTiens)
+            {
+                <option value="@item.MaDoUuTien">@item.TenDoUuTien</option>
+            }
+        </select>
+        <span asp-validation-for="MaDoUuTien" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Gửi yêu cầu</button>
+    <a href="@Url.Action("LichSuYeuCau", "NhanVien")" class="btn btn-outline-secondary">Lịch sử yêu cầu</a>
+    <a href="@Url.Action("CapNhatTaiKhoan", "NhanVien")" class="btn btn-outline-secondary">Update</a>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

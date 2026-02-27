@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Trang Quản Trị";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center mt-4">
+    <h2 class="text-primary fw-bold">Chào mừng Admin!</h2>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+        </div>
+    }
+
+    <p class="lead mt-2">Hệ thống quản lý yêu cầu hỗ trợ kỹ thuật - SMV HelpDesk</p>
+</div>
+
+<hr class="my-4" />
+
+<div class="row g-4 justify-content-center">
+    <!-- Quản lý nhân viên -->
+    <div class="col-lg-4 col-md-6">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-people-fill fs-1 text-primary mb-3"></i>
+                <h5 class="card-title fw-bold">Quản lý nhân viên</h5>
+                <p class="card-text">Xem danh sách và tạo tài khoản nhân viên mới.</p>
+                <div class="d-grid gap-2">
+                    <a href="@Url.Action("DanhSachNhanVien", "Admin")" class="btn btn-outline-primary">Danh sách nhân viên</a>
+                    <a href="@Url.Action("CreateUser", "Admin")" class="btn btn-outline-success">Tạo tài khoản</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Xử lý yêu cầu -->
+    <div class="col-lg-4 col-md-6">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-list-task fs-1 text-warning mb-3"></i>
+                <h5 class="card-title fw-bold">Xử lý yêu cầu</h5>
+                <p class="card-text">Xem tất cả yêu cầu và gán cho nhân viên hỗ trợ.</p>
+                <a href="@Url.Action("DanhSach", "YeuCau")" class="btn btn-outline-warning w-100">Danh sách yêu cầu</a>
+            </div>
+        </div>
+    </div>
+</div>

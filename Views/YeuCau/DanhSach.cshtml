@@ -1,0 +1,92 @@
+﻿@model List<OnlineHelpDesk_ASP_NET_CORE.Models.YeuCau>
+
+@{
+    ViewData["Title"] = "Danh sách yêu cầu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var supports = (List<OnlineHelpDesk_ASP_NET_CORE.Models.NhanVien>)ViewBag.Supports;
+    var uuTiens = (List<OnlineHelpDesk_ASP_NET_CORE.Models.DoUuTien>)ViewBag.DoUuTienList;
+    var query = Context.Request.Query;
+}
+
+<h3 class="mb-4 text-primary">Tất cả yêu cầu hỗ trợ</h3>
+
+<form asp-action="DanhSach" asp-controller="YeuCau" method="get" class="row g-3 mb-4">
+    <div class="col-md-3">
+        <label>Từ ngày</label>
+        <input type="date" name="tuNgay" class="form-control" value="@query["tuNgay"]" />
+    </div>
+    <div class="col-md-3">
+        <label>Đến ngày</label>
+        <input type="date" name="denNgay" class="form-control" value="@query["denNgay"]" />
+    </div>
+    <div class="col-md-3">
+        <label>Độ ưu tiên</label>
+        <select name="doUuTien" class="form-select">
+            <option value="">-- Tất cả --</option>
+            @foreach (var item in uuTiens)
+            {
+                var selected = query["doUuTien"] == item.MaDoUuTien.ToString() ? "selected" : "";
+                <option value="@item.MaDoUuTien" selected>@item.TenDoUuTien</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-3 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+    </div>
+</form>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Mã</th>
+            <th>Tiêu đề</th>
+            <th>Người gửi</th>
+            <th>Độ ưu tiên</th>
+            <th>Ngày gửi</th>
+            <th>Người xử lý</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var yc in Model)
+        {
+            <tr>
+                <td>@yc.MaYeuCau</td>
+                <td>@yc.Tieude</td>
+                <td>@yc.NhanVienGui?.Hoten</td>
+                <td>@(yc.DoUuTien?.TenDoUuTien ?? "Không rõ")</td>
+                <td>@yc.Ngaygui.ToString("dd/MM/yyyy")</td>
+                <td>
+                    @if (yc.NhanVienXuLy == null)
+                    {
+                        <form asp-action="GanXuLy" asp-controller="YeuCau" method="post" class="d-flex">
+                            <input type="hidden" name="maYeuCau" value="@yc.MaYeuCau" />
+                            <select name="manvXuLy" class="form-select form-select-sm me-2 w-auto">
+                                <option value="">--Chọn--</option>
+                                @foreach (var sp in supports)
+                                {
+                                    <option value="@sp.Username">@sp.Hoten</option>
+                                }
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-outline-primary">Gán</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span class="text-success">@yc.NhanVienXuLy.Hoten</span>
+                    }
+                </td>
+                <td>
+                    @if (yc.NhanVienXuLy == null)
+                    {
+                        <span class="text-muted">Chưa xử lý</span>
+                    }
+                    else
+                    {
+                        <span class="text-info">Đã gán</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

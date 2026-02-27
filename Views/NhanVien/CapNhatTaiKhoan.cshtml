@@ -1,0 +1,53 @@
+﻿@model OnlineHelpDesk_ASP_NET_CORE.ViewModels.NhanVienUpdateVM
+
+@{
+    ViewData["Title"] = "Cập nhật tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="text-primary mb-4">Cập nhật thông tin cá nhân</h3>
+
+@if (TempData["Success"] != null)
+{
+        <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<form method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label>Họ tên</label>
+        <input asp-for="Hoten" class="form-control" />
+        <span asp-validation-for="Hoten" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Mật khẩu</label>
+        <input asp-for="Password" class="form-control" type="password" />
+        <span asp-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Ngày sinh</label>
+        <input asp-for="Ngaysinh" class="form-control" type="date" />
+    </div>
+
+    <div class="mb-3">
+        <label>Ảnh đại diện mới</label>
+        <input asp-for="ImageUpload" type="file" class="form-control" />
+        @if (ViewBag.AnhCu != null)
+        {
+                <div class="mt-2">
+                    <img src="@ViewBag.AnhCu" width="100" />
+                </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

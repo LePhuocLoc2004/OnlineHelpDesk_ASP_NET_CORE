@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Nhan Vien";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<table class="table table-bordered table-striped">
+    <thead class="table-light">
+        <tr>
+            <th>Tài khoản</th>
+            <th>Họ tên</th>
+            <th>Ngày sinh</th>
+            <th>Quyền</th>
+            <th>Yêu cầu</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var nv in Model)
+        {
+            <tr>
+                <td>@nv.Username</td>
+                <td>@nv.Hoten</td>
+                <td>@(nv.Ngaysinh?.ToString("dd/MM/yyyy"))</td>
+                <td>
+                    @(nv.Quyen == 3 ? "Admin" : nv.Quyen == 1 ? "Nhân viên" : "Support")
+                </td>
+                <td>
+                    @if (nv.Quyen != 3 && nv.Quyen !=2)
+                    {
+                        <a class="btn btn-sm btn-outline-info"
+                           href="/YeuCau/XemTheoNhanVien/@nv.Username">
+                            Xem yêu cầu
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">—</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,48 @@
+﻿@model List<OnlineHelpDesk_ASP_NET_CORE.Models.YeuCau>
+
+@{
+    ViewData["Title"] = "Yêu cầu của nhân viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<a href="@Url.Action("DanhSachNhanVien", "Admin")" class="btn btn-secondary mb-3">
+    ← Quay về 
+</a>
+
+<h3 class="text-primary mb-4">
+    Danh sách yêu cầu của: <strong>@ViewBag.TenNhanVien</strong>
+</h3>
+
+@if (Model != null && Model.Count > 0)
+{
+        <table class="table table-bordered table-striped">
+            <thead class="table-light">
+                <tr>
+                    <th>Mã</th>
+                    <th>Tiêu đề</th>
+                    <th>Nội dung</th>
+                    <th>Ngày gửi</th>
+                    <th>Độ ưu tiên</th>
+                    <th>Người xử lý</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var yc in Model)
+            {
+                    <tr>
+                        <td>@yc.MaYeuCau</td>
+                        <td>@yc.Tieude</td>
+                        <td>@yc.Noidung</td>
+                        <td>@yc.Ngaygui.ToString("dd/MM/yyyy")</td>
+                        <td>@yc.DoUuTien?.TenDoUuTien</td>
+                        <td>@(yc.NhanVienXuLy?.Hoten ?? "Chưa phân công")</td>
+                    </tr>
+            }
+            </tbody>
+        </table>
+}
+else
+{
+        <div class="alert alert-warning">
+            Nhân viên này chưa gửi yêu cầu nào.
+        </div>
+}

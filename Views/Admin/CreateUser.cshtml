@@ -1,0 +1,66 @@
+﻿@model OnlineHelpDesk_ASP_NET_CORE.ViewModels.NhanVienCreateVM
+
+@{
+    ViewData["Title"] = "Tạo tài khoản nhân viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="text-primary mb-4">Tạo tài khoản nhân viên</h3>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var err in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@err.ErrorMessage</div>
+        }
+    </div>
+}
+
+<form asp-action="CreateUser" asp-controller="Admin" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label asp-for="Username" class="form-label">Tài khoản</label>
+        <input asp-for="Username" class="form-control" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label">Mật khẩu</label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Hoten" class="form-label">Họ tên</label>
+        <input asp-for="Hoten" class="form-control" />
+        <span asp-validation-for="Hoten" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Ngaysinh" class="form-label">Ngày sinh</label>
+        <input asp-for="Ngaysinh" type="date" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Quyen" class="form-label">Quyền</label>
+        <select asp-for="Quyen" class="form-select">
+            <option value="">-- Chọn quyền --</option>
+            <option value="1">Nhân viên</option>
+            <option value="2">Nhân viên hỗ trợ</option>
+        </select>
+        <span asp-validation-for="Quyen" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ImageUpload" class="form-label">Ảnh đại diện</label>
+        <input asp-for="ImageUpload" type="file" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Tạo tài khoản</button>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

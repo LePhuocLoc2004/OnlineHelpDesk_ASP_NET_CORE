@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    var username = HttpContextAccessor.HttpContext.Session.GetString("Username");
+    var quyen = HttpContextAccessor.HttpContext.Session.GetInt32("Quyen");
+}
+
+@if (!string.IsNullOrEmpty(username))
+{
+    <div class="d-flex align-items-center text-white">
+        <span class="me-2">Xin chào, <strong>@username</strong></span>
+        <a class="btn btn-sm btn-outline-light ms-2" asp-controller="Account" asp-action="Logout">Đăng xuất</a>
+    </div>
+}
+else
+{
+    <a class="btn btn-sm btn-outline-light" asp-controller="Account" asp-action="Login">Đăng nhập</a>
+}

@@ -1,0 +1,75 @@
+﻿@model List<OnlineHelpDesk_ASP_NET_CORE.Models.YeuCau>
+
+@{
+    ViewData["Title"] = "Lịch sử yêu cầu của bạn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var uuTiens = (List<OnlineHelpDesk_ASP_NET_CORE.Models.DoUuTien>)ViewBag.DoUuTienList;
+
+    var tuNgay = Context.Request.Query["tuNgay"];
+    var denNgay = Context.Request.Query["denNgay"];
+    var selectedDoUuTien = Context.Request.Query["doUuTien"];
+}
+
+<h3 class="text-primary mb-4">Lịch sử yêu cầu của bạn</h3>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-3">
+        <label class="form-label">Từ ngày</label>
+        <input type="date" name="tuNgay" class="form-control" value="@tuNgay" />
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Đến ngày</label>
+        <input type="date" name="denNgay" class="form-control" value="@denNgay" />
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Độ ưu tiên</label>
+        <select name="doUuTien" class="form-select">
+            <option value="">-- Tất cả --</option>
+            @foreach (var item in uuTiens)
+            {
+                var isSelected = selectedDoUuTien == item.MaDoUuTien.ToString();
+                <option value="@item.MaDoUuTien" selected="@(isSelected)">
+                    @item.TenDoUuTien
+                </option>
+            }
+        </select>
+    </div>
+    <div class="col-md-3 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+    </div>
+</form>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Mã</th>
+            <th>Tiêu đề</th>
+            <th>Ngày gửi</th>
+            <th>Độ ưu tiên</th>
+            <th>Trạng thái</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count == 0)
+        {
+            <tr>
+                <td colspan="5" class="text-center text-muted">Không có dữ liệu phù hợp</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var yc in Model)
+            {
+                <tr>
+                    <td>@yc.MaYeuCau</td>
+                    <td>@yc.Tieude</td>
+                    <td>@yc.Ngaygui.ToString("dd/MM/yyyy")</td>
+                    <td>@yc.DoUuTien?.TenDoUuTien</td>
+                    <td>
+                        @(yc.Manv_XuLy == null ? "Chưa xử lý" : "Đã tiếp nhận")
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
