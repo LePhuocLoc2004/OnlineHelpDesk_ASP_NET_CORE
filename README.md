@@ -1,159 +1,30 @@
-# OnlineHelpDesk_ASP_NET_CORE
-
 🏥 Online Help Desk System
-ASP.NET Core MVC + Entity Framework Core
-📌 Project Overview
+📌 Overview
 
-This project is a Role-Based Online Help Desk Management System developed using ASP.NET Core MVC and Entity Framework Core.
-
-The system allows employees to submit support requests, administrators to manage users, and support staff to handle assigned requests.
-
-The application implements 3 user roles:
+Online Help Desk Management System developed using ASP.NET Core MVC and Entity Framework Core. The system supports 3 roles: Admin, Support Staff, and Employee. It allows employees to submit support requests, admins to manage accounts and assign requests, and support staff to process assigned tickets.
 
 👑 Admin
 
-🛠 Support Staff
-
-👤 Employee
-
-🎯 Main Features
-👑 Admin
-
-🔐 Login with default admin account
-
-👥 View employee list
-
-👁 View requests of selected employee
-
-➕ Create employee accounts (Employee / Support Staff)
-
-📌 Assign requests to support staff
-
-🔎 Search requests by:
-
-Time range
-
-Priority level
+Login with default admin account, view employee list and their requests, create employee or support accounts, assign requests to support staff, and search requests by time range or priority.
 
 🛠 Support Staff
 
-🔐 Login with assigned account
-
-📋 View requests assigned to them
-
-🔎 Search assigned requests by:
-
-Time range
-
-Priority
-
-✏ Update personal account information
+Login with admin-created account, view assigned requests, search by time range or priority, and update personal account information.
 
 👤 Employee
 
-🔐 Login with assigned account
-
-📝 Create support requests
-
-Select priority from DoUuTien table
-
-Assigned support staff = NULL when created
-
-📂 View personal requests
-
-🔎 Search requests by:
-
-Time range
-
-Priority
-
-✏ Update personal account information
-
-🗄 Database Design
-
-Main tables include:
-
-NhanVien (with role column: quyen)
-
-YeuCau
-
-DoUuTien
-
-Related entities for request management
-
-Role values:
-
-0 → Employee
-
-1 → Support Staff
-
-2 → Admin
-
-🛠 Tech Stack
-🔥 Backend
-
-C#
-
-ASP.NET Core MVC
-
-Entity Framework Core
-
-LINQ
-
-SQL Server
-
-🎨 Frontend
-
-Razor View Engine
-
-HTML5
-
-CSS3
-
-Bootstrap
-
-JavaScript
+Login with admin-created account, create support requests with selected priority (assigned support staff = NULL initially), view personal requests, search by time range or priority, and update account information.
 
 🗄 Database
 
-Microsoft SQL Server
+Main tables include NhanVien (with role column: quyen), YeuCau, DoUuTien. Role values: 0 = Employee, 1 = Support Staff, 2 = Admin.
 
-🧰 Tools
+🛠 Tech Stack
 
-Visual Studio
+Backend: C#, ASP.NET Core MVC, Entity Framework Core, SQL Server
+Frontend: Razor View Engine, HTML5, CSS3, Bootstrap, JavaScript
+Tools: Visual Studio, SQL Server Management Studio (SSMS), NuGet
 
-SQL Server Management Studio (SSMS)
+🎯 Project Purpose
 
-NuGet Package Manager
-
-🏗 Architecture
-
-MVC Pattern
-
-Role-Based Authorization
-
-Entity Framework Core (Code First / Database First)
-
-Layout-based UI structure
-
-🚀 Project Purpose
-
-This system simulates a real-world enterprise support management workflow where:
-
-Employees create support requests
-
-Admin assigns requests
-
-Support staff processes and resolves them
-
-It demonstrates:
-
-Authentication & Authorization
-
-Role management
-
-CRUD operations
-
-Filtering & Searching
-
-Database relationship handling
+Simulates a real-world enterprise support management workflow with role-based authorization, CRUD operations, filtering/searching features, and MVC architecture implementation.
